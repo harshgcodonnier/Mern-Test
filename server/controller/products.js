@@ -261,18 +261,14 @@ class Product {
         query.pPrice = { $lte: Number(maxPrice) };
       }
 
-      const items = await productModel.find(query, { _id: 1, pName: 1, pPrice: 1 })
-        .sort({ pPrice: 1 })
-        .lean();
+      const products = await productModel.find(query)
+        .populate("pCategory", "_id cName")
+        .sort({ _id: -1 });
 
       res.status(200).json({
         success: true,
-        items: items.map((item) => ({
-          id: item._id,
-          title: item.pName,
-          price: item.pPrice,
-        })),
-        count: items.length,
+        Products: products,
+        count: products.length,
       });
 
     } catch (error) {

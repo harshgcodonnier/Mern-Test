@@ -66,7 +66,7 @@ const SingleProduct = (props) => {
                 <img
                   onClick={(e) => history.push(`/products/${item._id}`)}
                   className="w-full object-cover object-center cursor-pointer"
-                  src={`${apiURL}/uploads/products/${item.pImages[0]}`}
+                  src={`${apiURL}/uploads/products/${item.pImages && item.pImages[0]}`}
                   alt=""
                 />
                 <div className="flex items-center justify-between mt-2">
@@ -91,7 +91,7 @@ const SingleProduct = (props) => {
                       </svg>
                     </span>
                     <span className="text-gray-700">
-                      {item.pRatingsReviews.length}
+                      {item.pRatingsReviews ? item.pRatingsReviews.length : 0}
                     </span>
                   </div>
                 </div>
@@ -138,7 +138,7 @@ const SingleProduct = (props) => {
         })
       ) : (
         <div className="col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center py-24 text-2xl">
-          No product found
+          {data.loading ? "Loading..." : "No product found"}
         </div>
       )}
     </Fragment>

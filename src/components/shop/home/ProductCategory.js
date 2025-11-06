@@ -41,45 +41,15 @@ const ProductCategory = (props) => {
           <div
             onClick={(e) =>
               dispatch({
-                type: "filterListDropdown",
-                payload: !data.filterListDropdown,
+                type: "filterSearchDropdown",
+                payload: !data.filterSearchDropdown,
               })
             }
             className={`flex items-center space-x-1 cursor-pointer ${
-              data.filterListDropdown ? "text-yellow-700" : ""
+              data.filterSearchDropdown ? "text-yellow-700" : ""
             }`}
           >
-            <span className="text-md md:text-lg">Filter</span>
-            <span>
-              <svg
-                className="w-4 h-4 text-gray-700 text-yellow-700"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                ></path>
-              </svg>
-            </span>
-          </div>
-          <span>/</span>
-          <div
-            onClick={(e) =>
-              dispatch({
-                type: "searchDropdown",
-                payload: !data.searchDropdown,
-              })
-            }
-            className={`flex items-center space-x-1 cursor-pointer ${
-              data.searchDropdown ? "text-yellow-700" : ""
-            }`}
-          >
-            <span className="text-md md:text-lg">Search</span>
+            <span className="text-md md:text-lg">Filter & Search</span>
             <span>
               <svg
                 className="w-4 h-4 text-gray-700 text-yellow-700"

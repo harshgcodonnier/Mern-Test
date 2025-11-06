@@ -109,3 +109,17 @@ export const productByPrice = async (price) => {
     console.log(error);
   }
 };
+
+export const productBySearch = async ({ title, description, maxPrice }) => {
+  try {
+    let res = await axios.post(`${apiURL}/api/product/product-by-search`, {
+      title: title || "",
+      description: description || "",
+      maxPrice: maxPrice || ""
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
